@@ -149,7 +149,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="sm:col-span-2">
+          <div>
             <label
               htmlFor="height"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -172,7 +172,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="sm:col-span-2">
+          <div>
             <label
               htmlFor="weight"
               className="block text-sm font-semibold leading-6 text-gray-900"
