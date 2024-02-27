@@ -20,8 +20,7 @@ export default function Home() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      name: "",
-      profession: "",
+    
     },
   });
 
@@ -95,7 +94,13 @@ export default function Home() {
             <div className="mt-2.5">
               <input
                 {...register("age", {
-                  required: "Idade é requerido.",
+                  required: "Idade é requerida.",
+                  validate: (value) => {
+                    const parsedValue = parseFloat(value);
+                    return !isNaN(parsedValue) && parsedValue > 0
+                      ? true
+                      : "A idade deve ser maior que 0.";
+                  },
                 })}
                 type="number"
                 name="age"
@@ -106,6 +111,7 @@ export default function Home() {
               )}
             </div>
           </div>
+
           <div className="sm:col-span-2">
             <label
               htmlFor="profession"
@@ -117,12 +123,11 @@ export default function Home() {
               <input
                 type="text"
                 name="profession"
-                id="profession"
-                autoComplete="organization"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
 
           <div className="sm:col-span-2">
             <label
@@ -151,7 +156,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="sm:col-span-2">
+          <div>
             <label
               htmlFor="height"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -162,9 +167,15 @@ export default function Home() {
               <input
                 {...register("height", {
                   required: "Altura é requerida.",
+                  validate: (value) => {
+                    const parsedValue = parseFloat(value);
+                    return !isNaN(parsedValue) && parsedValue > 0
+                      ? true
+                      : "A altura deve ser maior que 0.";
+                  },
                 })}
-                type="number" 
-                step="0.01"   
+                type="number"
+                step="0.01"
                 name="height"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -174,7 +185,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="sm:col-span-2">
+          <div>
             <label
               htmlFor="weight"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -185,9 +196,15 @@ export default function Home() {
               <input
                 {...register("weight", {
                   required: "Peso é requerido.",
+                  validate: (value) => {
+                    const parsedValue = parseFloat(value);
+                    return !isNaN(parsedValue) && parsedValue > 0
+                      ? true
+                      : "O peso deve ser maior que 0.";
+                  },
                 })}
                 type="number"
-                step="0.01" 
+                step="0.01"
                 name="weight"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -196,6 +213,7 @@ export default function Home() {
               )}
             </div>
           </div>
+
 
 
 
