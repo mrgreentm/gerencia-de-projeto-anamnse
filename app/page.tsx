@@ -9,6 +9,10 @@ type FormData = {
   weight: number;
   gender: 'male' | 'female' | 'other';
   height: number;
+  complaint: string;
+  complaintFrequency: string;
+  complaintIntensity: string;
+  complaintDuration: number;
 };
 
 export default function Home() {
@@ -114,7 +118,7 @@ export default function Home() {
             </label>
             <div className="mt-2.5">
               <input
-              type="text"
+                type="text"
                 name="profession"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -194,6 +198,133 @@ export default function Home() {
               )}
             </div>
           </div>
+
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              Dados de Queixa
+            </p>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="complaint"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Qual é a sua queixa principal?
+            </label>
+            <div className="mt-2.5">
+              <select
+                {...register("complaint", {
+                  required: "Por favor, selecione a queixa.",
+                })}
+                id="complaint"
+                name="complaint"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="dor-de-cabeca">Dor de cabeça</option>
+                <option value="dores-no-corpo">Dores no corpo</option>
+                <option value="febre">Febre</option>
+                <option value="cansaco">Cansaço</option>
+                <option value="falta-de-ar">Falta de ar</option>
+                <option value="dor-abdominal">Dor abdominal</option>
+                <option value="tontura">Tontura</option>
+                <option value="enjoo">Enjoo</option>
+                <option value="vomitos">Vômitos</option>
+                <option value="diarreia">Diarreia</option>
+                <option value="sangramento">Sangramento</option>
+                <option value="problemas-respiratorios">Problemas respiratórios</option>
+                <option value="lesao-ou-trauma">Lesão ou trauma</option>
+                <option value="disturbios-sono">Distúrbios do sono</option>
+                <option value="alteracoes-no-peso">Alterações no peso</option>
+                <option value="problemas-dermatologicos">Problemas dermatológicos</option>
+                <option value="dificuldade-urinaria">Dificuldade urinária</option>
+                <option value="problemas-visuais">Problemas visuais</option>
+                <option value="ansiedade">Ansiedade</option>
+                <option value="depressao">Depressão</option>
+                <option value="outros">Outros</option>
+
+              </select>
+            </div>
+            {errors?.complaint && (
+              <span className="text-red-700">{errors.complaint.message}</span>
+            )}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="complaintFrequency"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Frequência da Queixa
+            </label>
+            <select
+              {...register("complaintFrequency", {
+                required: "A frequência da queixa é obrigatória.",
+              })}
+              id="complaintFrequency"
+              name="complaintFrequency"
+              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option value="">Selecione a frequência da queixa</option>
+              <option value="diária">Diária</option>
+              <option value="semanal">Semanal</option>
+              <option value="mensal">Mensal</option>
+              
+            </select>
+            {errors?.complaintFrequency && (
+              <span className="text-red-700">{errors.complaintFrequency.message}</span>
+            )}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="complaintIntensity"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Intensidade da Queixa
+            </label>
+            <select
+              {...register("complaintIntensity", {
+                required: "A intensidade da queixa é obrigatória.",
+              })}
+              id="complaintIntensity"
+              name="complaintIntensity"
+              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option value="">Selecione a intensidade da queixa</option>
+              <option value="leve">Leve</option>
+              <option value="moderada">Moderada</option>
+              <option value="intensa">Intensa</option>
+            </select>
+            {errors?.complaintIntensity && (
+              <span className="text-red-700">{errors.complaintIntensity.message}</span>
+            )}
+          </div>
+
+          <div className="mt-2.5">
+            <label
+              htmlFor="complaintDuration"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Duração da Queixa (em dias)
+            </label>
+            <input
+              {...register("complaintDuration", {
+                required: "A duração da queixa é obrigatória.",
+                min: { value: 1, message: "A duração deve ser maior que zero." },
+                pattern: {
+                  value: /^\d+$/,
+                  message: "A duração deve ser um número positivo.",
+                },
+              })}
+              type="number"
+              name="complaintDuration"
+              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            {errors?.complaintDuration && (
+              <span className="text-red-700">{errors.complaintDuration.message}</span>
+            )}
+          </div>
+
 
 
 
