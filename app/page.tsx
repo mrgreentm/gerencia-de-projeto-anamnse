@@ -13,6 +13,7 @@ type FormData = {
   complaintFrequency: string;
   complaintIntensity: string;
   complaintDuration: number;
+  childhoodDiseases: string[]; // Agora é um array de strings
 };
 
 export default function Home() {
@@ -24,12 +25,15 @@ export default function Home() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-
+      childhoodDiseases: [], // Certifique-se de inicializar como um array vazio
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) =>
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    // Certifique-se de que data.childhoodDiseases seja um array
     console.log(data);
+  };
+
 
   const onError: SubmitErrorHandler<FormData> = (errors) => console.log(errors);
 
@@ -220,6 +224,7 @@ export default function Home() {
                 name="complaint"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               >
+                <option value="">Selecione sua queixa</option>
                 <option value="dor-de-cabeca">Dor de cabeça</option>
                 <option value="dores-no-corpo">Dores no corpo</option>
                 <option value="febre">Febre</option>
@@ -254,7 +259,7 @@ export default function Home() {
               htmlFor="complaintFrequency"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Frequência da Queixa
+              Frequência da queixa principal
             </label>
             <select
               {...register("complaintFrequency", {
@@ -268,7 +273,7 @@ export default function Home() {
               <option value="diária">Diária</option>
               <option value="semanal">Semanal</option>
               <option value="mensal">Mensal</option>
-              
+
             </select>
             {errors?.complaintFrequency && (
               <span className="text-red-700">{errors.complaintFrequency.message}</span>
@@ -280,7 +285,7 @@ export default function Home() {
               htmlFor="complaintIntensity"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Intensidade da Queixa
+              Intensidade da queixa principal
             </label>
             <select
               {...register("complaintIntensity", {
@@ -300,12 +305,12 @@ export default function Home() {
             )}
           </div>
 
-          <div className="mt-2.5">
+          <div className="sm:col-span-2">
             <label
               htmlFor="complaintDuration"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Duração da Queixa (em dias)
+              Duração da queixa principal (em dias)
             </label>
             <input
               {...register("complaintDuration", {
@@ -324,6 +329,228 @@ export default function Home() {
               <span className="text-red-700">{errors.complaintDuration.message}</span>
             )}
           </div>
+
+
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              Dados de Histórico
+            </p>
+          </div>
+
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="childhoodDiseases"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Histórico de Doenças na Infância
+            </label>
+            <div className="mt-2.5">
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="sarampo"
+                  value="sarampo"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="sarampo" className="text-gray-900">
+                  Sarampo
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="catapora"
+                  value="catapora"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="catapora" className="text-gray-900">
+                  Catapora
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="caxumba"
+                  value="caxumba"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="caxumba" className="text-gray-900">
+                  Caxumba
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="rubéola"
+                  value="rubéola"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="rubéola" className="text-gray-900">
+                  Rubéola
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="coqueluche"
+                  value="coqueluche"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="coqueluche" className="text-gray-900">
+                  Coqueluche
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="varicela"
+                  value="varicela"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="varicela" className="text-gray-900">
+                  Varicela
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="poliomielite"
+                  value="poliomielite"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="poliomielite" className="text-gray-900">
+                  Poliomielite
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="hepatiteA"
+                  value="hepatiteA"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="hepatiteA" className="text-gray-900">
+                  Hepatite A
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="meningite"
+                  value="meningite"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="meningite" className="text-gray-900">
+                  Meningite
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="febreAmarela"
+                  value="febreAmarela"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="febreAmarela" className="text-gray-900">
+                  Febre Amarela
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="tuberculose"
+                  value="tuberculose"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="tuberculose" className="text-gray-900">
+                  Tuberculose
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="hepatiteB"
+                  value="hepatiteB"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="hepatiteB" className="text-gray-900">
+                  Hepatite B
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="difteria"
+                  value="difteria"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="difteria" className="text-gray-900">
+                  Difteria
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="tétano"
+                  value="tétano"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="tétano" className="text-gray-900">
+                  Tétano
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="asma"
+                  value="asma"
+                  {...register("childhoodDiseases")}
+                  className="mr-1"
+                />
+                <label htmlFor="asma" className="text-gray-900">
+                  Asma
+                </label>
+              </div>
+
+
+
+              {/* Adicione mais doencas aqui */}
+
+            </div>
+            {errors?.childhoodDiseases && (
+              <span className="text-red-700">{errors.childhoodDiseases.message}</span>
+            )}
+          </div>
+
 
 
 
