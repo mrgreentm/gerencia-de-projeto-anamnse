@@ -20,6 +20,7 @@ type FormData = {
   powerType: string;
   waterConsumption: string;
   foodPreferences: string[];
+  familyHistory: string[];
 };
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
       allergies: [],
       symptoms: [],
       foodPreferences: [],
+      familyHistory: [],
     },
   });
 
@@ -741,6 +743,113 @@ export default function Home() {
               <span className="text-red-700">{errors.allergies.message}</span>
             )}
           </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="familyHistory"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Antecedentes Familiares
+            </label>
+            <div className="mt-2.5">
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="pressaoAlta"
+                  value="pressaoAlta"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="pressaoAlta" className="text-gray-900">
+                  Pressão Alta
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="doencaCoração"
+                  value="doencaCoração"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="doencaCoração" className="text-gray-900">
+                  Doença do Coração
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="doencaRins"
+                  value="doencaRins"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="doencaRins" className="text-gray-900">
+                  Doença dos Rins
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="neoplasia"
+                  value="neoplasia"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="neoplasia" className="text-gray-900">
+                  Neoplasia (Câncer)
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="diabetes"
+                  value="diabetes"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="diabetes" className="text-gray-900">
+                  Diabetes
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="epilepsia"
+                  value="epilepsia"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="epilepsia" className="text-gray-900">
+                  Epilepsia
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="dislipidemia"
+                  value="dislipidemia"
+                  {...register("familyHistory")}
+                  className="mr-1"
+                />
+                <label htmlFor="dislipidemia" className="text-gray-900">
+                  Dislipidemia
+                </label>
+              </div>
+
+              {/* Adicione mais antecedentes familiares conforme necessário */}
+            </div>
+            {errors?.familyHistory && (
+              <span className="text-red-700">{errors.familyHistory.message}</span>
+            )}
+          </div>
+
 
 
           {/* Habitos alimentares */}
