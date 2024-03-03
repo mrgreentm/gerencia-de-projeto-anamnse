@@ -13,7 +13,8 @@ type FormData = {
   complaintFrequency: string;
   complaintIntensity: string;
   complaintDuration: number;
-  childhoodDiseases: string[]; // Agora é um array de strings
+  childhoodDiseases: string[]; 
+  allergies: string[];
 };
 
 export default function Home() {
@@ -25,12 +26,12 @@ export default function Home() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      childhoodDiseases: [], // Certifique-se de inicializar como um array vazio
+      childhoodDiseases: [],
+      allergies: [], 
     },
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    // Certifique-se de que data.childhoodDiseases seja um array
     console.log(data);
   };
 
@@ -343,7 +344,7 @@ export default function Home() {
               htmlFor="childhoodDiseases"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Histórico de Doenças na Infância
+              Histórico de Doenças
             </label>
             <div className="mt-2.5">
               <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
@@ -550,6 +551,63 @@ export default function Home() {
               <span className="text-red-700">{errors.childhoodDiseases.message}</span>
             )}
           </div>
+
+
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="allergies"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Histórico de Alergias
+            </label>
+            <div className="mt-2.5">
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="rinite"
+                  value="rinite"
+                  {...register("allergies")}
+                  className="mr-1"
+                />
+                <label htmlFor="rinite" className="text-gray-900">
+                  Rinite
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="dermatite"
+                  value="dermatite"
+                  {...register("allergies")}
+                  className="mr-1"
+                />
+                <label htmlFor="dermatite" className="text-gray-900">
+                  Dermatite
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="alergiaAlimentar"
+                  value="alergiaAlimentar"
+                  {...register("allergies")}
+                  className="mr-1"
+                />
+                <label htmlFor="alergiaAlimentar" className="text-gray-900">
+                  Alergia Alimentar
+                </label>
+              </div>
+
+              {/* Adicione mais alergias conforme necessário */}
+            </div>
+            {errors?.allergies && (
+              <span className="text-red-700">{errors.allergies.message}</span>
+            )}
+          </div>
+
 
 
 
