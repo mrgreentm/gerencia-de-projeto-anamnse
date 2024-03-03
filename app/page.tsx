@@ -1,7 +1,10 @@
 "use client";
 
+{/* Biblioteca react-hook-form */ }
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
+
+{/* Tipo dos dados */ }
 type FormData = {
   name: string;
   profession: string;
@@ -9,25 +12,29 @@ type FormData = {
   weight: number;
   gender: 'male' | 'female' | 'other';
   height: number;
-  complaint: string;
-  complaintFrequency: string;
-  complaintIntensity: string;
+  symptoms: string[];
   complaintDuration: number;
-  childhoodDiseases: string[]; 
+  childhoodDiseases: string[];
   allergies: string[];
+  mealFrequency: string;
+  powerType: string;
+  waterConsumption: string;
+  foodPreferences: string[];
 };
 
 export default function Home() {
 
 
   const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
+    handleSubmit,  // Função para lidar com a submissão do formulário.
+    register, // Função para registrar campos de entrada no formulário.
+    formState: { errors }, // Objeto contendo os erros do formulário.
+  } = useForm<FormData>({ // Utiliza o hook useForm do react-hook-form, onde "FormData" é o tipo dos dados do formulário.
+    defaultValues: { // inicializacao dos valores dos arrays, tbm pode botar outros
       childhoodDiseases: [],
-      allergies: [], 
+      allergies: [],
+      symptoms: [],
+      foodPreferences: [],
     },
   });
 
@@ -58,10 +65,14 @@ export default function Home() {
         </h2>
 
       </div>
+
+
+      {/* Comeco do formulario */}
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className="mx-auto mt-16 max-w-xl sm:mt-20"
       >
+        {/* Dados de identificacao */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="mt-2 text-lg leading-8 text-gray-600">
             Dados de Identificação.
@@ -163,7 +174,7 @@ export default function Home() {
               htmlFor="height"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Altura em metros
+              Altura (em centímetros)
             </label>
             <div className="mt-2.5">
               <input
@@ -171,7 +182,6 @@ export default function Home() {
                   required: "Altura é requerida.",
                 })}
                 type="number"
-                step="0.01"
                 name="height"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -186,7 +196,7 @@ export default function Home() {
               htmlFor="weight"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Peso em kg
+              Peso (em kg)
             </label>
             <div className="mt-2.5">
               <input
@@ -209,100 +219,224 @@ export default function Home() {
               Dados de Queixa
             </p>
           </div>
+
+
           <div className="sm:col-span-2">
             <label
-              htmlFor="complaint"
+              htmlFor="symptoms"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Qual é a sua queixa principal?
+              Sintomas que você sente
             </label>
             <div className="mt-2.5">
-              <select
-                {...register("complaint", {
-                  required: "Por favor, selecione a queixa.",
-                })}
-                id="complaint"
-                name="complaint"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              >
-                <option value="">Selecione sua queixa</option>
-                <option value="dor-de-cabeca">Dor de cabeça</option>
-                <option value="dores-no-corpo">Dores no corpo</option>
-                <option value="febre">Febre</option>
-                <option value="cansaco">Cansaço</option>
-                <option value="falta-de-ar">Falta de ar</option>
-                <option value="dor-abdominal">Dor abdominal</option>
-                <option value="tontura">Tontura</option>
-                <option value="enjoo">Enjoo</option>
-                <option value="vomitos">Vômitos</option>
-                <option value="diarreia">Diarreia</option>
-                <option value="sangramento">Sangramento</option>
-                <option value="problemas-respiratorios">Problemas respiratórios</option>
-                <option value="lesao-ou-trauma">Lesão ou trauma</option>
-                <option value="disturbios-sono">Distúrbios do sono</option>
-                <option value="alteracoes-no-peso">Alterações no peso</option>
-                <option value="problemas-dermatologicos">Problemas dermatológicos</option>
-                <option value="dificuldade-urinaria">Dificuldade urinária</option>
-                <option value="problemas-visuais">Problemas visuais</option>
-                <option value="ansiedade">Ansiedade</option>
-                <option value="depressao">Depressão</option>
-                <option value="outros">Outros</option>
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="dorCabeca"
+                  value="dorCabeca"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="dorCabeca" className="text-gray-900">
+                  Dor de cabeça
+                </label>
+              </div>
 
-              </select>
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="doresCorpo"
+                  value="doresCorpo"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="doresCorpo" className="text-gray-900">
+                  Dores no corpo
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="febre"
+                  value="febre"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="febre" className="text-gray-900">
+                  Febre
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="cansaco"
+                  value="cansaco"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="cansaco" className="text-gray-900">
+                  Cansaço
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="faltaDeAr"
+                  value="faltaDeAr"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="faltaDeAr" className="text-gray-900">
+                  Falta de ar
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="dorAbdominal"
+                  value="dorAbdominal"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="dorAbdominal" className="text-gray-900">
+                  Dor abdominal
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="tontura"
+                  value="tontura"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="tontura" className="text-gray-900">
+                  Tontura
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="enjoo"
+                  value="enjoo"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="enjoo" className="text-gray-900">
+                  Enjoo
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="vomitos"
+                  value="vomitos"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="vomitos" className="text-gray-900">
+                  Vômitos
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="diarreia"
+                  value="diarreia"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="diarreia" className="text-gray-900">
+                  Diarreia
+                </label>
+              </div>
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="sangramento"
+                  value="sangramento"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="sangramento" className="text-gray-900">
+                  Sangramento
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="probRespiratorios"
+                  value="probRespiratorios"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="probRespiratorios" className="text-gray-900">
+                  Problemas respiratórios
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="lesaoOuTrauma"
+                  value="lesaoOuTrauma"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="lesaoOuTrauma" className="text-gray-900">
+                  Lesão ou trauma
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="disturbiosSono"
+                  value="disturbiosSono"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="disturbiosSono" className="text-gray-900">
+                  Distúrbios do sono
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="altPeso"
+                  value="altPeso"
+                  {...register("symptoms")}
+                  className="mr-1"
+                />
+                <label htmlFor="altPeso" className="text-gray-900">
+                  Alterações no peso
+                </label>
+              </div>
+
+
+
+
+
+
+
+
+              {/* Adicione mais sintomas conforme necessário */}
+
+
+              {/* Adicione mais sintomas conforme necessário */}
             </div>
-            {errors?.complaint && (
-              <span className="text-red-700">{errors.complaint.message}</span>
-            )}
-          </div>
-
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="complaintFrequency"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Frequência da queixa principal
-            </label>
-            <select
-              {...register("complaintFrequency", {
-                required: "A frequência da queixa é obrigatória.",
-              })}
-              id="complaintFrequency"
-              name="complaintFrequency"
-              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option value="">Selecione a frequência da queixa</option>
-              <option value="diária">Diária</option>
-              <option value="semanal">Semanal</option>
-              <option value="mensal">Mensal</option>
-
-            </select>
-            {errors?.complaintFrequency && (
-              <span className="text-red-700">{errors.complaintFrequency.message}</span>
-            )}
-          </div>
-
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="complaintIntensity"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Intensidade da queixa principal
-            </label>
-            <select
-              {...register("complaintIntensity", {
-                required: "A intensidade da queixa é obrigatória.",
-              })}
-              id="complaintIntensity"
-              name="complaintIntensity"
-              className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option value="">Selecione a intensidade da queixa</option>
-              <option value="leve">Leve</option>
-              <option value="moderada">Moderada</option>
-              <option value="intensa">Intensa</option>
-            </select>
-            {errors?.complaintIntensity && (
-              <span className="text-red-700">{errors.complaintIntensity.message}</span>
+            {errors?.symptoms && (
+              <span className="text-red-700">{errors.symptoms.message}</span>
             )}
           </div>
 
@@ -311,7 +445,7 @@ export default function Home() {
               htmlFor="complaintDuration"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Duração da queixa principal (em dias)
+              Duração do(s) sintoma(s) (em dias)
             </label>
             <input
               {...register("complaintDuration", {
@@ -331,7 +465,7 @@ export default function Home() {
             )}
           </div>
 
-
+          {/* Dados de Historico */}
           <div className="mx-auto max-w-2xl text-center">
             <p className="mt-2 text-lg leading-8 text-gray-600">
               Dados de Histórico
@@ -553,7 +687,6 @@ export default function Home() {
           </div>
 
 
-
           <div className="sm:col-span-2">
             <label
               htmlFor="allergies"
@@ -601,12 +734,188 @@ export default function Home() {
                 </label>
               </div>
 
+
               {/* Adicione mais alergias conforme necessário */}
             </div>
             {errors?.allergies && (
               <span className="text-red-700">{errors.allergies.message}</span>
             )}
           </div>
+
+
+          {/* Habitos alimentares */}
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              Hábitos alimentares
+            </p>
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="mealFrequency"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Selecione a frequência de suas refeições
+            </label>
+            <div className="mt-2.5">
+              <select
+                {...register("mealFrequency", {
+                  required: "Frequência de refeições é requerida",
+                })}
+                id="mealFrequency"
+                name="mealFrequency"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="">Selecione a frequência</option>
+                <option value="irregular">Varia diariamente (irregular)</option>
+                <option value="3">3 vezes ao dia</option>
+                <option value="5">5 vezes ao dia</option>
+                <option value="mais de 5">Mais de 5 vezes por dia</option>
+              </select>
+            </div>
+            {errors?.mealFrequency && (
+              <span className="text-red-700">{errors.mealFrequency.message}</span>
+            )}
+          </div>
+
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="powerType"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tipo de alimentação
+            </label>
+            <div className="mt-2.5">
+              <select
+                {...register("powerType", {
+                  required: "Tipo de alimentação é requerido",
+                })}
+                id="powerType"
+                name="powerType"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="">Selecione seu tipo de alimentação</option>
+                <option value="Vegetariano">Vegetariano</option>
+                <option value="Vegano">Vegano</option>
+                <option value="Onívoro"> Onívoro</option>
+                <option value="Outro"> Outro</option>
+              </select>
+            </div>
+            {errors?.powerType && (
+              <span className="text-red-700">{errors.powerType.message}</span>
+            )}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="waterConsumption"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Consumo de água
+            </label>
+            <div className="mt-2.5">
+              <select
+                {...register("waterConsumption", {
+                  required: "Consumo de água é requerido",
+                })}
+                id="waterConsumption"
+                name="waterConsumption"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="">Selecione seu consumo de água</option>
+                <option value="Menos-de-1L">Menos de 1L por dia</option>
+                <option value="1-2-L">1-2 L por dia</option>
+                <option value="Mais-de-2L"> Mais de 2L por dia</option>
+              </select>
+            </div>
+            {errors?.waterConsumption && (
+              <span className="text-red-700">{errors.waterConsumption.message}</span>
+            )}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="foodPreferences"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Preferências Alimentares
+            </label>
+            <div className="mt-2.5">
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="carnes"
+                  value="carnes"
+                  {...register("foodPreferences")}
+                  className="mr-1"
+                />
+                <label htmlFor="carnes" className="text-gray-900">
+                  Carnes
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="peixesFrutosMar"
+                  value="peixesFrutosMar"
+                  {...register("foodPreferences")}
+                  className="mr-1"
+                />
+                <label htmlFor="peixesFrutosMar" className="text-gray-900">
+                  Peixes e frutos do mar
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="produtosLacteos"
+                  value="produtosLacteos"
+                  {...register("foodPreferences")}
+                  className="mr-1"
+                />
+                <label htmlFor="produtosLacteos" className="text-gray-900">
+                  Produtos lácteos
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="frutasVegetais"
+                  value="frutasVegetais"
+                  {...register("foodPreferences")}
+                  className="mr-1"
+                />
+                <label htmlFor="frutasVegetais" className="text-gray-900">
+                  Frutas e vegetais
+                </label>
+              </div>
+
+              <div style={{ border: '1px solid #ccc', borderRadius: '50%', padding: '10px', display: 'inline-block', marginRight: '10px' }}>
+                <input
+                  type="checkbox"
+                  id="graosCereais"
+                  value="graosCereais"
+                  {...register("foodPreferences")}
+                  className="mr-1"
+                />
+                <label htmlFor="graosCereais" className="text-gray-900">
+                  Grãos e cereais
+                </label>
+              </div>
+
+              {/* Adicione mais opções conforme necessário */}
+            </div>
+            {errors?.foodPreferences && (
+              <span className="text-red-700">{errors.foodPreferences.message}</span>
+            )}
+          </div>
+
+
+
 
 
 
