@@ -2,7 +2,7 @@
 
 {/* Biblioteca react-hook-form */ }
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-
+import { useState } from 'react'; 
 
 {/* Tipo dos dados */ }
 type FormData = {
@@ -25,8 +25,9 @@ type FormData = {
 
 export default function Home() {
 
-
+  const [showPopup, setShowPopup] = useState(false);
   const {
+    
     handleSubmit,  // Função para lidar com a submissão do formulário.
     register, // Função para registrar campos de entrada no formulário.
     formState: { errors }, // Objeto contendo os erros do formulário.
@@ -42,6 +43,7 @@ export default function Home() {
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     console.log(data);
+    setShowPopup(true);
   };
 
 
@@ -1060,6 +1062,20 @@ export default function Home() {
           </button>
         </div>
       </form>
+      {/* Popup para exibir após o envio do formulário */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-md shadow-md">
+            <p className="text-lg font-semibold mb-2">Formulário Enviado!</p>
+            <button
+              className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+              onClick={() => setShowPopup(false)}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
